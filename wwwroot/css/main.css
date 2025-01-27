@@ -1,0 +1,44 @@
+.home-container {
+    width: 100vw;
+    height: 100vh;
+}
+
+.home-image {
+    width: 352px;
+    height: 122px;
+}
+
+/*.side-drawer {
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #1E3E60;
+    color: white;*/
+    /*padding: 20px;*/
+    /*box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+    .side-drawer ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .side-drawer li {
+        margin: 15px 0;
+    }
+
+    .side-drawer a {
+        color: white;
+        text-decoration: none;
+    }
+
+        .side-drawer a:hover {
+            text-decoration: underline;
+        }*/
+
+.main-content {
+/*    margin-left: 300px;*/
+    padding: 20px;
+}

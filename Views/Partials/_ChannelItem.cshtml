@@ -1,0 +1,79 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+    var content = Model;
+
+    var title = content.Value<string>("channelTitle");
+    var image = content.Value<Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>("channelImage");
+    var link = content.Value<IPublishedContent>("channelPageLink");
+}
+
+<div class="channel-component">
+  
+    @if (image != null)
+    {
+        <div class="channel-image-container">
+            <img src="@image.Url()" alt="image-channel" class="channel-image" />
+            @if (link != null)
+            {
+                <a class="channel-title" href="@link.Url()">
+                    @title
+                </a>
+            }
+            else
+            {
+                <a class="channel-title">@title</a>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .channel-component {
+        position: relative;
+        width: 353px;
+        /* display: flex; */
+        /* flex-direction: column; */
+        /* background: #fff; */
+        height: 353px;
+    }
+
+    .channel-content {
+        display: flex;
+        flex-direction: column;
+        padding: 8px;
+        gap: 1rem
+    }
+
+    .channel-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        position: relative;
+    }
+
+    .channel-image-container {
+        width: 100%;
+        height: 100%;
+        /* display: flex; */
+        position: relative;
+        overflow: hidden;
+    }
+
+    .channel-title {
+        font-weight: bold;
+        font-size: 16px;
+        text-align: justify;
+        text-decoration: none;
+        color: white;
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        cursor: pointer;
+    }
+
+</style>

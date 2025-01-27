@@ -1,0 +1,34 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ProgrammePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    Layout = "Main.cshtml";
+}
+
+@{
+    var pageTitle = Model.Value<string>("programmeTitle");
+    var pageDescription = Model.Value<string>("programmeDescription");
+    var childNodes = Model.Children<ContentModels.Feature>();
+}
+
+<div>
+    <h1>@pageTitle</h1>
+    
+    <div>@Html.Raw(pageDescription)</div>
+
+    <div class="channels-list">
+        @foreach (var child in childNodes)
+         {
+            @Html.Partial("~/Views/Partials/Feature.cshtml", child)
+         } 
+    </div>
+</div>
+
+<style>
+    .channels-list {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+</style>

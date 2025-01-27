@@ -1,0 +1,33 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+
+    var content = Model.Content;
+    var channelsItems = content.Value<Umbraco.Cms.Core.Models.Blocks.BlockGridModel>("channelsList");
+}
+
+@if (channelsItems == null)
+{
+    <p style="color: red;">No channels items found!</p>
+}
+else
+{
+    <div class="channels-list">
+        @foreach (var item in channelsItems)
+        {
+            @Html.Partial("~/Views/Partials/_ChannelItem.cshtml", item)
+        }
+    </div>
+}
+
+<style>
+    .channels-list {
+        display: flex;
+        /* flex-wrap: wrap; */
+        gap: 1rem;
+        justify-content: flex-start;
+        width: auto;
+        overflow: scroll;
+    }
+</style>

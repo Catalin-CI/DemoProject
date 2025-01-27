@@ -1,0 +1,33 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+
+    var content = Model.Content;
+    var cardItems = content.Value<Umbraco.Cms.Core.Models.Blocks.BlockGridModel>("cards");
+}
+
+@if (cardItems == null)
+{
+    <p style="color: red;">No card items found!</p>
+}
+else
+{
+     <div class="card-list">
+    @foreach (var item in cardItems)
+    {
+        @Html.Partial("~/Views/Partials/_CardItem.cshtml", item)
+    }
+    </div>
+}
+
+<style>
+    .card-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: flex-start;
+        width: 100%;
+        overflow: auto;
+    }
+</style>

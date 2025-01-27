@@ -1,0 +1,119 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    Layout = "Main.cshtml";
+}
+
+@{
+    var cardsContainerModel = Model.Value<BlockGridModel>("cardContainer");
+    var shortsContainerModel = Model.Value<BlockGridModel>("shortsContainer");
+    var pageTitle = Model.Value<string>("pageTitle");
+
+    var channelsPage = Umbraco.Content(1132);
+    var childNodes = channelsPage?.Children<Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+    <main class="main-content">
+        <img 
+            src="https://fortune.com/img-assets/wp-content/uploads/2024/09/GettyImages-1927881398-e1726685742299.jpg?w=1440&q=75" 
+            alt="Placeholder Large Image" 
+            class="big-image" 
+        />
+
+        <h2 class="pick-category">Pick your channel</h2>
+        <div class="channels-list">
+            @if (childNodes != null && childNodes.Any())
+            {
+                foreach (var child in childNodes)
+                {
+                    @Html.Partial("~/Views/Partials/_ChannelItem.cshtml", child)
+                }
+            }
+        </div>
+        
+        <h2 class="pick-category">Explore features</h2>
+
+        @if (cardsContainerModel != null)
+        {
+            foreach (var block in cardsContainerModel)
+            {
+                switch (block.Content.ContentType.Alias)
+                {
+                    case "cardList":
+                       
+                        @Html.Partial("~/Views/Partials/_CardList.cshtml", block)
+                        break;
+                      
+                }
+            }
+        }
+
+        <h2 class="pick-category">Shorts</h2>
+
+
+        <div>
+            @if (shortsContainerModel != null)
+            {
+                foreach (var block in shortsContainerModel)
+                {
+                    switch (block.Content.ContentType.Alias)
+                    {
+                        case "cardList":
+
+                            @Html.Partial("~/Views/Partials/_CardList.cshtml", block)
+                            break;
+
+                    }
+                }
+            }
+        </div>
+    </main>
+</body>
+</html>
+
+<style>
+
+    .channels-list {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #1E3E60;
+    }
+
+    .main-content {
+        /*margin-left: 220px; */
+        padding: 1rem;
+    }
+
+    .big-image {
+        height: 355px;
+        width: 100%;
+        object-fit: cover;
+        display: block;
+        margin: 1rem 1rem 1rem 0;
+    }
+
+    .pick-category {
+        font-size: 1.5rem;
+        margin: 1rem 1rem 1rem 0;
+        padding-top: 1.5rem;
+        color: white;
+    }
+
+</style>

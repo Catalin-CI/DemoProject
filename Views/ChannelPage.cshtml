@@ -1,0 +1,47 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ChannelPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    Layout = "Main.cshtml";
+}
+
+@{
+    var pageTitle = Model.Value<string>("channelPageTitle");
+    var pageDescription = Model.Value<string>("channelPageDescription");
+    var childNodes = Model.Children<ContentModels.Programme>();
+}
+
+<div class="channels-list">
+    <h1>@pageTitle</h1>
+    
+    <div class="channel-description">@Html.Raw(pageDescription)</div>
+
+    <div class="channels-list">
+        @foreach (var child in childNodes)
+        {
+            @Html.Partial("~/Views/Programme.cshtml", child)
+        }
+    </div>
+</div>
+
+<style>
+
+    .channel-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .channel-description {
+        color: white;
+        font-size: 16px !important;
+        margin-bottom: 2rem;
+    }
+
+    .channels-list {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+</style>

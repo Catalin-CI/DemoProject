@@ -1,0 +1,48 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>
+@using System.Linq;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+    Layout = "Main.cshtml";
+
+    var currentContributor = Model;
+    var contributorName = currentContributor.Value<string>("contributorName") ?? currentContributor.Name;
+    var contributorPhoto = currentContributor.Value<IPublishedContent>("contributorPhoto");
+
+}
+<h1>@contributorName</h1>
+
+@if (contributorPhoto != null)
+{
+    <img src="@contributorPhoto.Url()" alt="@contributorName" style="max-width:200px;" />
+}
+
+@{
+    var rootNodes = Umbraco.ContentAtRoot();
+
+    var allFeaturesCards = rootNodes
+       .SelectMany(r => r.DescendantsOrSelf()
+       .Where(x => x.ContentType.Alias == "feature"));
+
+    var featuresCards = allFeaturesCards.Where(feature =>
+           {
+               var pickedContributors = feature.Value<IPublishedContent>("contributor");
+               return pickedContributors != null && pickedContributors.Id == currentContributor.Id;
+           });
+}
+
+@if (allFeaturesCards.Any())
+{
+    <h2>Features linked to @contributorName</h2>
+
+    @foreach (var f in featuresCards)
+    {
+        <div>
+            @Html.Partial("~/Views/Partials/Feature.cshtml", f)
+        </div>
+    }
+}
+else
+{
+    <p>No features reference this contributor.</p>
+}

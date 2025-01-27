@@ -1,0 +1,62 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+    var content = Model;
+
+    var title = content.Value<string>("programmeTitle");
+    var image = content.Value<Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>("programmeImage");
+    var link = content.Value<IPublishedContent>("programmePageLink");
+}
+
+<div class="programme-component">
+
+
+    @if (image != null)
+    {
+        <div>
+            <img src="@image.Url()" alt="image-channel" class="programme-image" />
+        </div>
+           
+    }
+    @if (link != null)
+    {
+        <div>
+            <a class="programme-title" href="@link.Url()">
+                @title
+            </a>
+        </div>
+    }
+    else
+    {
+        <p class="programme-title">@title</p>
+    }
+</div>
+
+<style>
+    .programme-component {
+        position: relative;
+        width: 260px;
+        display: flex;
+        flex-direction: column;
+        /* background: #fff; */
+        height: auto;
+        gap: 0.5rem;
+    }
+
+    
+
+    .programme-image {
+        width: 260px;
+        height: 186px;
+    }
+
+    .programme-title {
+        font-size: 16px;
+        text-align: justify;
+        text-decoration: none;
+        color: white;
+        position: absolute;
+        cursor: pointer;
+    }
+</style>

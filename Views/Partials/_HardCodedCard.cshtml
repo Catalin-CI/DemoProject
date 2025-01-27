@@ -1,0 +1,56 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    var cardTopic = "#Digital Skills";
+    var cardTitle = "Chris Madden: Digital Skills";
+    var cardImageUrl = "https://workdesign.com/wp-content/uploads/2014/09/Lobby_Tapestry_2-Edit-Flat-720x539.jpg";
+}
+
+<div class="hardcoded-card">
+    <div class="hardcoded-card__image-container">
+        <img src="@cardImageUrl" alt="Card Image" class="hardcoded-card__image" />
+    </div>
+
+    <p class="hardcoded-card__topic">@cardTopic</p>
+
+    <h3 class="hardcoded-card__title">@cardTitle</h3>
+</div>
+
+<style>
+    .hardcoded-card {
+        width: 250px;
+        background-color: #0f2d4f; 
+        color: #ffffff;
+        padding: 1rem;
+        border-radius: 6px;
+        font-family: Arial, sans-serif;
+        position: relative;
+    }
+
+    .hardcoded-card__image-container {
+        width: 100%;
+        height: auto;
+        overflow: hidden; 
+        border-radius: 4px;
+        margin-bottom: 1rem;
+    }
+
+    .hardcoded-card__image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .hardcoded-card__topic {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #cccccc; 
+    }
+
+    .hardcoded-card__title {
+        margin: 0.5rem 0 0 0;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #ffffff;
+    }
+</style>

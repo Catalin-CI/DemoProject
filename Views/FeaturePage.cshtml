@@ -1,0 +1,136 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.FeaturePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+    Layout = "Main.cshtml";
+}
+
+@{
+    var content = Model;
+
+    var topic = content.Value<string>("topic");
+    var title = content.Value<string>("title");
+    var type = content.Value<string>("type");
+    var time = content.Value<string>("time");
+    var reviewStars = content.Value<int>("reviewStars");
+
+    var author = content.Value<IPublishedContent>("contributor");
+    var authorName = author?.Value<string>("contributorName") ?? "Unknown Author";
+    var authorPhoto = author?.Value<IPublishedContent>("contributorPhoto")?.Url();
+
+
+    var image = content.Value<Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>("image");
+    var mainContent = content.Value<string>("mainContent");
+
+}
+
+<div class="card-component">
+
+        <p class="card-title">
+            @title
+        </p>
+    <div class="card-meta">
+        @if (!string.IsNullOrWhiteSpace(type))
+        {
+            <p class="card-topic">@type</p>
+        }
+        @if (!string.IsNullOrWhiteSpace(time))
+        {
+            <p class="card-topic">Time: @time</p>
+        }
+        @if (!string.IsNullOrWhiteSpace(topic))
+        {
+             <p class="card-topic"># @topic</p>
+        }
+    </div>
+
+    <div class="card-meta">
+        <p>Contributor: @authorName</p>
+        <p>Stars: @reviewStars</p>
+    </div>
+
+
+    @if (image != null)
+    {
+        <div class="card-image-container">
+            <img src="@image.Url()" alt="image-channel" class="card-image" />
+        </div>
+    } 
+    
+    <div class="card-description">
+        <p>@Html.Raw(mainContent)</p>
+    </div>
+</div>
+
+<style>
+    .card-component {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10rem 0 10rem 0;
+        gap: 1rem;
+        background-color: white;
+        color: black;
+    }
+
+    .card-image {
+        width: 50%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        position: relative;
+    }
+
+    .card-image-container {
+        width: 100%;
+        height: 160px;
+        display: flex;
+        position: relative;
+        overflow: hidden;
+        justify-content: center;
+    }
+
+    .card-topic {
+        color: #888;
+        margin: 0.5rem 0 0 0;
+        font-size: 14px;
+    }
+
+    .card-title {
+        font-weight: bold;
+        font-size: 32px;
+        text-align: justify;
+        text-decoration: none;
+        color: #133E63;
+        margin: 0.5rem 0;
+        display: block;
+    }
+
+    .card-meta {
+        display: flex;
+        font-size: 14px;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+        gap: 2rem;
+        margin-top: -1rem
+    }
+
+
+    .card-description p{
+        display: flex;
+        font-size: 14px;
+        justify-content: center;
+        text-align: left;
+        padding: 0 10rem 0 10rem;
+    }
+
+
+</style>
